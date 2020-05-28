@@ -10,9 +10,12 @@ import { blue, green, red } from "@material-ui/core/colors";
 
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
-import { checkboxLabourSelector, isLabourFulfilled } from "../../selectors";
+import {
+  checkboxLabourSelector,
+  isLabourFulfilledSelector,
+} from "../../selectors";
 import DropzoneLabour from "../dropzone-labour";
-import { addedFile, verifyLabour } from "../../actions";
+import { addedFile, addLabourFile, verifyLabour } from "../../actions";
 import PassportFormGroup from "../passport-form-group";
 
 import LabourFormGroup from "../labour-form-group";
@@ -61,7 +64,7 @@ const LargeGreenCheckIcon = withStyles({
 const BlueButton = withStyles({
   root: {
     color: blue[300],
-    border: "1px dotted #89cff0",
+    border: "1px dotted transparent",
     borderRadius: 4,
   },
   checked: {},
@@ -110,12 +113,12 @@ class LabourFrame extends React.Component {
         <Container>
           <div
             style={{
-              border: "1px solid transparent",
               "border-radius": "8px",
-              padding: "10px",
               height: this.state.passportShow ? "auto" : "70px",
-              "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
               "margin-top": "20px",
+              border: "1px solid #e5e5e5",
+              padding: "10px",
+              "padding-bottom": "0px",
             }}
           >
             <div>
@@ -142,7 +145,7 @@ class LabourFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !isFulfilled
                               ? "red"
-                              : "black",
+                              : "grey",
                         }}
                       >
                         Книжка
@@ -170,16 +173,18 @@ class LabourFrame extends React.Component {
                   isVisible={this.state.passportShow}
                 >
                   <Row>
-                    <Col md={12}>
+                    <Col md={8}>
                       <div
                         style={{
                           "border-radius": "8px",
-                          "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
                           "min-height": "200px",
+                          background: "#f5f5f5",
+                          "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
                           padding: "15px",
+                          "margin-bottom": "10px",
                         }}
                       >
-                        <h1>
+                        <h5>
                           <span hidden={!isFulfilled}>
                             <LargeGreenCheckIcon />
                           </span>
@@ -187,8 +192,12 @@ class LabourFrame extends React.Component {
                             <LargeRedClearIcon />
                           </span>
                           Данные о трудовой книжке
-                        </h1>
-                        <div>
+                        </h5>
+                        <div
+                          style={{
+                            "margin-left": "-25px",
+                          }}
+                        >
                           <LabourFormGroup />
                         </div>
                         <div
@@ -238,6 +247,9 @@ class LabourFrame extends React.Component {
                                     все страницы,
                                     <br />с данными
                                   </strong>
+                                  <br />
+                                  Проверьте качество прикрепляемых документов,
+                                  чтобы заявка не вернулась на доработку.
                                 </div>
                                 <div
                                   style={{
@@ -251,23 +263,26 @@ class LabourFrame extends React.Component {
                         </div>
                       </div>
                     </Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <div
-                        style={{
-                          "margin-top": "20px",
-                          "margin-bottom": "15px",
-                          "text-align": "center",
-                          color: "grey",
-                          "font-size": "2rem",
-                        }}
-                      >
-                        Внесите файлы с трудовой книжкой ниже.
-                      </div>
+                    <Col md={4}>
+                      <DropzoneLabour />
                     </Col>
                   </Row>
-                  <DropzoneLabour />
+                  {/*<Row>*/}
+                  {/*  <Col>*/}
+                  {/*    <div*/}
+                  {/*      style={{*/}
+                  {/*        "margin-top": "20px",*/}
+                  {/*        "margin-bottom": "15px",*/}
+                  {/*        "text-align": "center",*/}
+                  {/*        color: "grey",*/}
+                  {/*        "font-size": "2rem",*/}
+                  {/*      }}*/}
+                  {/*    >*/}
+                  {/*      Внесите файлы с трудовой книжкой ниже.*/}
+                  {/*    </div>*/}
+                  {/*  </Col>*/}
+                  {/*</Row>*/}
+                  {/*<DropzoneLabour />*/}
                 </Animated>
               </div>
             </div>
@@ -279,12 +294,12 @@ class LabourFrame extends React.Component {
 }
 const mapStateToProps = (state) => ({
   pdfFile: state.forms.pdfFile,
-  isFulfilled: isLabourFulfilled(state),
+  isFulfilled: isLabourFulfilledSelector(state),
   fields: checkboxLabourSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addFile: (file) => dispatch(addedFile(file)),
+  addFile: (file) => dispatch(addLabourFile(file)),
   doVerify: (bool) => dispatch(verifyLabour(bool)),
 });
 

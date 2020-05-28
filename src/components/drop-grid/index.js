@@ -5,11 +5,12 @@ import styled from "styled-components";
 import SmallDropzone from "../small-dropzone";
 
 const Pill = styled.div`
-  background: #ffffff;
-  border: 1px dashed #53c1f6;
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 6px 6px;
-  border-radius: 6px;
+  background: #f5f5f5;
+  border: 1px dashed transparent;
+  border-radius: 2px;
   margin: 10px auto;
+  color: grey;
+  "box-shadow": "0 6px 6px rgba(0,0,0,0.2)";
 
   max-width: 150px;
   text-align: center;

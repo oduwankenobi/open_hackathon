@@ -1,4 +1,9 @@
-export const isPassportFulfilled = (state) => {
+export const checkboxLabourSelector = (state) => state.forms.checkboxLabour;
+export const checkboxIncomeSelector = (state) => state.forms.checkboxIncome;
+export const passPhotosSelector = (state) => state.forms.passPhotos;
+export const passCheckboxSelector = (state) => state.forms.checkbox;
+
+export const isPassportFulfilledSelector = (state) => {
   const passPhotos = passPhotosSelector(state);
   const passCheckbox = passCheckboxSelector(state);
   let res = 1;
@@ -15,17 +20,23 @@ export const isPassportFulfilled = (state) => {
   return res;
 };
 
-export const isLabourFulfilled = (state) => {
-  const checkbox = checkboxLabourSelector(state);
-  console.log(checkbox);
-  let res = 1;
+export const isIncomeFulfilledSelector = (state) => {
+  const checkbox = checkboxIncomeSelector(state);
+  let res = state.forms.incomeFiles.length;
   for (let i = 1; i <= Object.keys(checkbox).length; i++) {
     res *= checkbox[`check${i}`];
   }
-  return res * state.forms.labourFiles.length;
+  return !!res;
 };
 
-export const checkboxLabourSelector = (state) => state.forms.checkboxLabour;
+export const isLabourFulfilledSelector = (state) => {
+  const checkbox = checkboxLabourSelector(state);
+  let res = state.forms.labourFiles.length;
+  for (let i = 1; i <= Object.keys(checkbox).length; i++) {
+    res *= checkbox[`check${i}`];
+  }
+  return !!res;
+};
 
 export const passFieldsStatus = (state) => {
   const passPhotos = passPhotosSelector(state);
@@ -41,6 +52,10 @@ export const passFieldsStatus = (state) => {
   };
 };
 
-export const passPhotosSelector = (state) => state.forms.passPhotos;
-
-export const passCheckboxSelector = (state) => state.forms.checkbox;
+export const isFormsFulfilledSelector = (state) => {
+  return (
+    isPassportFulfilledSelector(state) &&
+    isLabourFulfilledSelector(state) &&
+    isIncomeFulfilledSelector(state)
+  );
+};

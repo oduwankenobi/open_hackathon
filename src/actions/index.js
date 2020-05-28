@@ -71,3 +71,31 @@ export const removeLabourFile = (file) => ({
   },
   type: "REMOVE_LABOUR_FILE",
 });
+
+export const updateCheckboxIncome = (obj) => ({
+  payload: {
+    obj,
+  },
+  type: "UPDATE_CHECKBOX_INCOME",
+});
+
+export const verifyIncome = (bool) => ({
+  payload: {
+    bool,
+  },
+  type: "VERIFY_INCOME",
+});
+
+export const addIncomeFile = (file) => ({
+  payload: {
+    file,
+  },
+  type: "ADD_INCOME_FILE",
+});
+
+export const removeIncomeFile = (file) => ({
+  payload: {
+    file,
+  },
+  type: "REMOVE_INCOME_FILE",
+});

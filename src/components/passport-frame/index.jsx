@@ -18,7 +18,7 @@ import styled from "styled-components";
 
 import { withStyles } from "@material-ui/core/styles";
 import { blue, green, red } from "@material-ui/core/colors";
-import { isPassportFulfilled, passFieldsStatus } from "../../selectors";
+import { isPassportFulfilledSelector, passFieldsStatus } from "../../selectors";
 
 import CheckIcon from "@material-ui/icons/Check";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -56,7 +56,7 @@ const LargeGreenCheckIcon = withStyles({
 const BlueButton = withStyles({
   root: {
     color: blue[300],
-    border: "1px dotted #89cff0",
+    border: "1px dotted transparent",
     borderRadius: 4,
   },
   checked: {},
@@ -108,13 +108,15 @@ class PassportFrame extends React.Component {
     return (
       <Container>
         <div
+          className=""
           style={{
-            border: "1px solid transparent",
+            "box-sizing": "content-box",
             "border-radius": "8px",
-            padding: "10px",
-            height: this.state.passportShow ? "auto" : "70px",
-            "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
+            height: this.state.passportShow ? "auto" : "auto",
             "margin-top": "20px",
+            border: "1px solid #e5e5e5",
+            padding: "10px",
+            "padding-bottom": "0px",
           }}
         >
           <div>
@@ -126,28 +128,27 @@ class PassportFrame extends React.Component {
               }}
             >
               {!this.state.passportShow ? (
-                <div>
-                  <h2>
-                    <span hidden={!isFulfilled}>
-                      <LargeGreenCheckIcon></LargeGreenCheckIcon>
-                    </span>
-                    <span hidden={!(this.state.verify && !isFulfilled)}>
-                      <LargeRedClearIcon></LargeRedClearIcon>
-                    </span>
-                    <span
-                      style={{
-                        color:
-                          this.state.verify && isFulfilled
-                            ? "green"
-                            : this.state.verify && !isFulfilled
-                            ? "red"
-                            : "black",
-                      }}
-                    >
-                      Паспорт
-                    </span>
-                  </h2>
-                </div>
+                <h3>
+                  <span hidden={!isFulfilled}>
+                    <LargeGreenCheckIcon></LargeGreenCheckIcon>
+                  </span>
+                  <span hidden={!(this.state.verify && !isFulfilled)}>
+                    <LargeRedClearIcon></LargeRedClearIcon>
+                  </span>
+
+                  <span
+                    style={{
+                      color:
+                        this.state.verify && isFulfilled
+                          ? "green"
+                          : this.state.verify && !isFulfilled
+                          ? "red"
+                          : "black",
+                    }}
+                  >
+                    Паспорт
+                  </span>
+                </h3>
               ) : null}
               <BlueButton
                 variant="outlined"
@@ -160,7 +161,7 @@ class PassportFrame extends React.Component {
                   : "Спрятать данные о паспорте"}
               </BlueButton>
             </div>
-            <div>
+            <div hidden={!this.state.passportShow}>
               <Animated
                 animationIn="fadeInUp"
                 animationOut="fadeOutRight"
@@ -172,13 +173,16 @@ class PassportFrame extends React.Component {
                   <Col md={8}>
                     <div
                       style={{
+                        border: "1px solid transparent",
                         "border-radius": "8px",
-                        "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
                         "min-height": "200px",
                         padding: "15px",
+                        "box-shadow": "0 6px 6px rgba(0,0,0,0.2)",
+                        "background-color": "#f5f5f5",
+                        "margin-bottom": "10px",
                       }}
                     >
-                      <h1>
+                      <h5>
                         <span hidden={!isFulfilled}>
                           <LargeGreenCheckIcon></LargeGreenCheckIcon>
                         </span>
@@ -186,8 +190,12 @@ class PassportFrame extends React.Component {
                           <LargeRedClearIcon></LargeRedClearIcon>
                         </span>
                         Данные паспорта
-                      </h1>
-                      <div>
+                      </h5>
+                      <div
+                        style={{
+                          color: "grey",
+                        }}
+                      >
                         Обязательные страницы: <br />
                         <br />
                         <span hidden={!fields["field1"]}>
@@ -204,7 +212,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field1"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             2-3 - разворот с фотографией,
@@ -224,7 +232,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field2"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             4-5 - место жительства (адрес регистрации),
@@ -244,7 +252,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field3"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             12-13 - воинская обязанность,
@@ -264,7 +272,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field4"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             14-15 - семейное положение,
@@ -284,7 +292,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field5"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             16-17 - дети,
@@ -304,7 +312,7 @@ class PassportFrame extends React.Component {
                               ? "green"
                               : this.state.verify && !fields["field6"]
                               ? "red"
-                              : "black",
+                              : "grey",
                           }}
                         >
                             18-19 - сведения о ранее выданном паспорте
@@ -378,9 +386,7 @@ class PassportFrame extends React.Component {
                     </div>
                   </Col>
                   <Col md={4}>
-                    {/*<div style={{border: "4px dotted", "min-height": "200px"}}>*/}
                     <Dropzone />
-                    {/*</div>*/}
                   </Col>
                 </Row>
                 <div
@@ -414,11 +420,11 @@ class PassportFrame extends React.Component {
                   <div
                     style={{
                       margin: "0px 30px",
-                      "margin-top": "-30px",
-                      "margin-bottom": "15px",
+                      "margin-top": "-50px",
+                      "margin-bottom": "10px",
                     }}
                   >
-                    <h3
+                    <h5
                       style={{
                         color: "grey",
                         "text-align": "center",
@@ -426,7 +432,7 @@ class PassportFrame extends React.Component {
                     >
                       Внесите фотографии паспорта по страницам ниже, или
                       загрузите .pdf в форму выше.
-                    </h3>
+                    </h5>
                   </div>
                 </Row>
                 <DropGrid></DropGrid>
@@ -440,7 +446,7 @@ class PassportFrame extends React.Component {
 }
 const mapStateToProps = (state) => ({
   pdfFile: state.forms.pdfFile,
-  isFulfilled: isPassportFulfilled(state),
+  isFulfilled: isPassportFulfilledSelector(state),
   fields: passFieldsStatus(state),
 });
 

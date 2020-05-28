@@ -13,7 +13,10 @@ import { blue } from "@material-ui/core/colors";
 import { connect, useDispatch, useSelector } from "react-redux";
 
 import { addedFile, updateCheckbox, updateCheckboxLabour } from "../../actions";
-import { checkboxLabourSelector, isLabourFulfilled } from "../../selectors";
+import {
+  checkboxLabourSelector,
+  isLabourFulfilledSelector,
+} from "../../selectors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,12 +59,12 @@ function LabourFormGroup({ updateStore, verify, files }) {
     <div className={classes.root}>
       <FormControl component="fieldset" className={classes.formControl}>
         <FormLabel component="legend">
-          Пожалуйста проверьте корректность данных
+          Пожалуйста подтвердите корректность данных
         </FormLabel>
         <FormGroup>
           <span
             style={{
-              color: check1 ? "green" : verify && !check1 ? "red" : "black",
+              color: check1 ? "green" : verify && !check1 ? "red" : "grey",
             }}
           >
             <FormControlLabel
@@ -77,7 +80,7 @@ function LabourFormGroup({ updateStore, verify, files }) {
           </span>
           <span
             style={{
-              color: check2 ? "green" : verify && !check2 ? "red" : "black",
+              color: check2 ? "green" : verify && !check2 ? "red" : "grey",
             }}
           >
             <FormControlLabel
@@ -93,7 +96,7 @@ function LabourFormGroup({ updateStore, verify, files }) {
           </span>
           <span
             style={{
-              color: check3 ? "green" : verify && !check3 ? "red" : "black",
+              color: check3 ? "green" : verify && !check3 ? "red" : "grey",
             }}
           >
             <FormControlLabel
@@ -108,14 +111,31 @@ function LabourFormGroup({ updateStore, verify, files }) {
             />
           </span>
 
-          <span hidden={!(files && !files.length && verify)}>
+          <div
+            hidden={!(files && !files.length && verify)}
+            style={{
+              "margin-top": "5px",
+            }}
+          >
             <Alert severity="error">
               <AlertTitle>Прикрипите данные</AlertTitle>
               Прикрепить файлы можно <strong>в поле ниже!</strong>
             </Alert>
-          </span>
+          </div>
+          <div
+            hidden={
+              !(verify && !state.check1 && !state.check2 && !state.check3)
+            }
+            style={{
+              "margin-top": "5px",
+            }}
+          >
+            <Alert severity="error">
+              <AlertTitle>Подтвердите корректность данных</AlertTitle>
+              Поставьте галочки во <strong>всех</strong> полях выше.
+            </Alert>
+          </div>
         </FormGroup>
-        <FormHelperText />
       </FormControl>
     </div>
   );
@@ -123,7 +143,7 @@ function LabourFormGroup({ updateStore, verify, files }) {
 
 const mapStateToProps = (state) => ({
   verify: state.forms.verifyLabour,
-  isFulfilled: isLabourFulfilled(state),
+  isFulfilled: isLabourFulfilledSelector(state),
   files: state.forms.labourFiles,
 });
 
