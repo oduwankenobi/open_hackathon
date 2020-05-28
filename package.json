@@ -2,6 +2,7 @@
   "name": "open",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://oduwankenobi.github.io/open_hackathon/",
   "description": "",
   "main": "src/index.jsx",
   "dependencies": {
@@ -38,7 +39,9 @@
   },
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --open",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
