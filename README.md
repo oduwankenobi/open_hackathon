@@ -1,68 +1,26 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### О хакатоне:
+Сначала бы хотел поблагодарить организаторов онлайн хакатона от банка «Открытие», за то что реально возились с нами. Я не так часто пользовался помощью, потому что был весь в коде, но всегда понимал, что её можно будет получить. Также я узнал больше о том как мыслит большой бизнес и какие кейсы решают IT отделы крупных банков. А также получил незабываемый опыт работы с React, когда решения принимаются на ходу и об архитектуре порой забываешь, но об этом позже.
 
-## Available Scripts
+Задача кейса на хакатоне была улучшить конверсию формы и сократить количество возвратов документов из-за невнимательности клиентов, вот как я решал эту проблему:
 
-In the project directory, you can run:
+1. Нельзя сделать сабмит пока не прочитаешь всю важную информацию на странице. Это была одна из проблем кейса, ведь пользователи отправляли файлы не читая, что надо отправить.
+2. .pdf вьюшка для загруженного паспорта, с возможностью проверить страницы, хотя бы с помощью чекбоксов...
+3. Вовремя появляющиеся иконки и перекраска надписей, заставляет обратить внимание юзера на требование к документам
+4. Всё что только возможно, можно спрятать чтобы форма стала меньше, но всё же сообщала о прогрессе.
 
-### `yarn start`
+Бонусом:
+1. Анимация и красивые кнопочки
+2. Сабмит пишет в консоль, объект со всеми загруженными файлами.
+3. Всё что только нужно, можно спрятать чтобы форма стала меньше и сообщала о прогрессе.
+4. Адаптивно-резиновая вёрстка
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### О моём опыте:
+У меня было 2 дня времени, 75 inline стилей, 5 библитек для дизайна, 42 неиспользованных импорта, проблемы с неймингом, десятки перейсталенных первым попавшимся образом компонент из material-ui, один редьсюсер на всё приложение, чудом созданная папка с селекторами, template.html где было что только угодно в подгружаемых скрипта и линках, и десяток так не удаленных и неиспользованных зависимостей в продакшене, которые до сих пор страшно удалять лишь бы ничего не сломалось, а также затерявшийся в ./src opencv.js, который должен был определять блюр на фотках прямо в браузере, но этому не суждено было случится...
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Первым в этой битве пали подсказки линтера для airbnb стайл кода, ибо десяток красных полосок указывающий на плохой код стайл, закрывала другой десяток синтаксических ошибок и опечаток в переменных. Но ему все же удалось нанести ответный удар, уронив приложение за минус 10 минут перед продакшеном, когда мне захотелось наконец-то пофиксить им отступы и код стайл, теперь я знаю, что авто фикс может сломать приложение... Без постоянного взора на лайв сервер, и своевременного поиска таким образом ошибок, моё приключение бы здесь быстро бы подошло к концу...
 
-### `yarn test`
+Самое интересное, что со мной случилось за моё короткое время работы с приложением. Это работа с формами, без модулей для работы с формами... И поиск drag&drop решения из коробки для React, из-за нежелания тратить время на прочтение API для react-dropzone... Зря... Приятно удивила простота работы с анимацией, и ужаснул drag&drop для компонентов...
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Самое удивительное, что написал рабочее приложение без больших компромиссов в чём-либо. Не хватает только сервера и fetchHooka. Но это рано или поздно будет исправлено
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Главное, что я получил от хакатона, это бесценный опыт работы в аврале, и после трёх суток у компа, желание ещё больше кодить и верстать. Я не знаю почему, но это весело и я точно не собираюсь останавливаться. Совет всем будущим участникам хакатонов, это доводить дело до конца, не бояться и пробывать свои силы, потому что это реальный опыт, который останется с вами, и поможет мыслить стратегически даже в самой напряженной обстановке
