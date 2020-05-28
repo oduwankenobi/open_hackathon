@@ -17,6 +17,7 @@
     "bootstrap": "^4.5.0",
     "classnames": "^2.2.6",
     "clean-webpack-plugin": "^3.0.0",
+    "gh-pages": "^2.2.0",
     "mgr-pdf-viewer-react": "^1.0.3",
     "react": "^16.13.1",
     "react-animated-css": "^1.2.1",
