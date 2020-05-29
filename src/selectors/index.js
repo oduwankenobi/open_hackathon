@@ -8,13 +8,6 @@ export const isPassportFulfilledSelector = (state) => {
   const passCheckbox = passCheckboxSelector(state);
   let res = 1;
   for (let i = 1; i <= Object.keys(passPhotos).length; i++) {
-    console.log(
-      "---",
-      state,
-      res,
-      passPhotos[`photo${i}`],
-      passCheckbox[`check${i}`]
-    );
     res *= !!passPhotos[`photo${i}`] || passCheckbox[`check${i}`];
   }
   return res;

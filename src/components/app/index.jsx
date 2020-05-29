@@ -4,16 +4,12 @@ import { Container, Row, Col } from "react-bootstrap";
 import { withStyles } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { connect } from "react-redux";
-import { Alert, AlertTitle } from "@material-ui/lab";
-import Dropzone from "../dropzone";
-import PdfView from "../pdfView";
-import DropGrid from "../drop-grid";
+import { Alert } from "@material-ui/lab";
 import PassportFrame from "../passport-frame";
 import LabourFrame from "../labour-frame";
 import IncomeFrame from "../income-frame";
 
 import {
-  checkboxLabourSelector,
   isFormsFulfilledSelector,
   isIncomeFulfilledSelector,
   isLabourFulfilledSelector,
@@ -68,10 +64,11 @@ const Main = styled.div`
 
   @media (min-width: 992px) {
     margin-top: -160px;
+    width: 980px;
   }
 
-  @media (min-width: 768px) {
-    width: 750px;
+  @media (min-width: 768px) and (max-width: 991px) {
+    width: 720px;
   }
 `;
 

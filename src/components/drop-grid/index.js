@@ -10,7 +10,6 @@ const Pill = styled.div`
   border-radius: 2px;
   margin: 10px auto;
   color: grey;
-  "box-shadow": "0 6px 6px rgba(0,0,0,0.2)";
 
   max-width: 150px;
   text-align: center;

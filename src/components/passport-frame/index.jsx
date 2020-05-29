@@ -412,7 +412,13 @@ class PassportFrame extends React.Component {
                       </div>
                     </Col>
                     <Col md={8}>
-                      <PdfView />
+                      <div
+                        style={{
+                          overflow: "hidden",
+                        }}
+                      >
+                        <PdfView />
+                      </div>
                     </Col>
                   </Row>
                 </div>
