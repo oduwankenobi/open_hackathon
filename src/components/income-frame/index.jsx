@@ -1,78 +1,19 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Animated } from "react-animated-css";
-
-import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-
-import { withStyles } from "@material-ui/core/styles";
-import { blue, green, red } from "@material-ui/core/colors";
-
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
 import {
   checkboxIncomeSelector,
   isIncomeFulfilledSelector,
 } from "../../selectors";
 import DropzoneIncome from "../dropzone-income";
-import {
-  addedFile,
-  addIncomeFile,
-  verifyIncome,
-  verifyLabour,
-} from "../../actions";
-
+import { addIncomeFile, verifyIncome } from "../../actions";
 import IncomeFormGroup from "../income-form-group";
-
-const BigBlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "4px solid #89cff0",
-    height: "60px",
-    fontSize: "1.5rem",
-    marginTop: "20px",
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
-
-const RedClearIcon = withStyles({
-  root: {
-    color: red[400],
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const LargeRedClearIcon = withStyles({
-  root: {
-    color: red[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const GreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const LargeGreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const BlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "1px dotted transparent",
-    borderRadius: 4,
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
+import {
+  LargeRedClearIcon,
+  BlueButton,
+  LargeGreenCheckIcon,
+} from "../components-with-styles";
 
 class IncomeFrame extends React.Component {
   constructor(props) {
@@ -109,10 +50,10 @@ class IncomeFrame extends React.Component {
   };
 
   render() {
-    const { fields, isFulfilled, verify } = this.props;
+    const { isFulfilled } = this.props;
 
     return (
-      <div style={{}}>
+      <div>
         <Container>
           <div
             style={{
@@ -269,22 +210,6 @@ class IncomeFrame extends React.Component {
                       <DropzoneIncome />
                     </Col>
                   </Row>
-                  {/*<Row>*/}
-                  {/*  <Col>*/}
-                  {/*    <div*/}
-                  {/*      style={{*/}
-                  {/*        "margin-top": "20px",*/}
-                  {/*        "margin-bottom": "15px",*/}
-                  {/*        "text-align": "center",*/}
-                  {/*        color: "grey",*/}
-                  {/*        "font-size": "2rem",*/}
-                  {/*      }}*/}
-                  {/*    >*/}
-                  {/*      Внесите файлы со справкой о доходах ниже.*/}
-                  {/*    </div>*/}
-                  {/*  </Col>*/}
-                  {/*</Row>*/}
-                  {/*<DropzoneIncome />*/}
                 </Animated>
               </div>
             </div>

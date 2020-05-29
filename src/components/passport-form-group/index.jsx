@@ -1,18 +1,15 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import Checkbox from "@material-ui/core/Checkbox";
+import { connect } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import { updateCheckbox } from "../../actions";
+import { GreenCheckbox } from "../components-with-styles";
 
-import { blue } from "@material-ui/core/colors";
-import { connect, useDispatch, useSelector } from "react-redux";
-
-import { addedFile, updateCheckbox } from "../../actions";
-
-const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
@@ -21,19 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GreenCheckbox = withStyles({
-  root: {
-    color: blue[200],
-    "&$checked": {
-      color: blue[300],
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
 function PassportFormGroup({ updateStore }) {
-  const dispatch = useDispatch();
-
   const classes = useStyles();
   const [state, setState] = React.useState({
     check1: false,

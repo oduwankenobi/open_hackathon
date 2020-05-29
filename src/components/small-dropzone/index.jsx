@@ -1,13 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, connect } from "react-redux";
-
+import React from "react";
+import { connect } from "react-redux";
 import DropzoneComponent from "react-dropzone-component";
-import {
-  addedFile,
-  addPassportPhoto,
-  removePassportPhoto,
-} from "../../actions";
-
+import { addPassportPhoto, removePassportPhoto } from "../../actions";
 import "./styles/example.css";
 import "./styles/filepicker.css";
 import "./styles/dropzone.min.css";
@@ -45,7 +39,6 @@ class SmallDropzone extends React.Component {
     const config = this.componentConfig;
     const { djsConfig } = this;
 
-    // For a list of all possible events (there are many), see README.md!
     const eventHandlers = {
       addedfile: this.handleFileAdded.bind(this),
       removedfile: this.handleFileRemoved.bind(this),

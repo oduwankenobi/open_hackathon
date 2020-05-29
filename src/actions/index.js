@@ -1,10 +1,14 @@
 export const addedFile = (file) => ({
-  file,
+  payload: {
+    file,
+  },
   type: "ADDED_FILE",
 });
 
 export const updateCheckbox = (obj) => ({
-  obj,
+  payload: {
+    obj,
+  },
   type: "UPDATE_CHECKBOX",
 });
 

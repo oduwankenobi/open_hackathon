@@ -1,36 +1,20 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
-import { Container, Row, Col } from "react-bootstrap";
-import { withStyles } from "@material-ui/core/styles";
-import { blue } from "@material-ui/core/colors";
+import { Container, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Alert } from "@material-ui/lab";
+import styled from "styled-components";
 import PassportFrame from "../passport-frame";
 import LabourFrame from "../labour-frame";
 import IncomeFrame from "../income-frame";
-
 import {
   isFormsFulfilledSelector,
   isIncomeFulfilledSelector,
   isLabourFulfilledSelector,
   isPassportFulfilledSelector,
 } from "../../selectors";
-import { addedFile, verifyLabour } from "../../actions";
+import { addedFile, verifyIncome, verifyLabour } from "../../actions";
 import Header from "../header";
-
-import styled from "styled-components";
-
-const BigBlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "6px solid #89cff0",
-    height: "60px",
-    fontSize: "1.5rem",
-    marginTop: "20px",
-    fontWeight: "600",
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
+import { SubmitButton } from "../components-with-styles";
 
 const Main = styled.div`
   -webkit-flex: 1 0 auto;
@@ -80,9 +64,12 @@ function App({
   passportPdf,
   passportPhotos,
   labourCardFiles,
+  incomeFiles,
+  verifyAllForms,
 }) {
   const [isSubmitSend, setIsSubmitSend] = useState(null);
   const [isErrorShowed, setIsErrorShowed] = useState(null);
+  const [isPassportVerified, setIsPassportVerified] = useState(false);
 
   const handleSubmit = () => {
     if (isFulfilled) {
@@ -93,12 +80,15 @@ function App({
           passportPdf,
           passportPhotos,
           labourCardFiles,
+          incomeFiles,
         }
       );
       setIsSubmitSend(true);
       setIsErrorShowed(null);
     } else {
       setIsErrorShowed(true);
+      verifyAllForms(true);
+      setIsPassportVerified(true);
     }
   };
 
@@ -133,7 +123,7 @@ function App({
               обрезаны, не засвечены. Допустимые форматы файлов - jpg, png,
               tiff, pdf
             </Alert>
-            <PassportFrame />
+            <PassportFrame verify={isPassportVerified} />
             <LabourFrame />
             <IncomeFrame />
             <Container>
@@ -186,14 +176,14 @@ function App({
                 </div>
               </Col>
               <Col>
-                <BigBlueButton
+                <SubmitButton
                   variant="outlined"
                   color="primary"
                   fullWidth
                   onClick={handleSubmit}
                 >
                   Отправить
-                </BigBlueButton>
+                </SubmitButton>
               </Col>
             </Container>
           </Container>
@@ -211,11 +201,15 @@ const mapStateToProps = (state) => ({
   passportPdf: state.forms.pdfFile,
   passportPhotos: state.forms.passPhotos,
   labourCardFiles: state.forms.labourFiles,
+  incomeFiles: state.forms.incomeFiles,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   addFile: (file) => dispatch(addedFile(file)),
-  doVerify: (bool) => dispatch(verifyLabour(bool)),
+  verifyAllForms: (bool) => {
+    dispatch(verifyLabour(bool));
+    dispatch(verifyIncome(bool));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

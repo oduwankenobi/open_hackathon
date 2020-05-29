@@ -1,22 +1,16 @@
 import React from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
-import Checkbox from "@material-ui/core/Checkbox";
 import Alert from "@material-ui/lab/Alert";
 import AlertTitle from "@material-ui/lab/AlertTitle";
-
-import { blue } from "@material-ui/core/colors";
-import { connect, useDispatch, useSelector } from "react-redux";
-
-import { addedFile, updateCheckbox, updateCheckboxIncome } from "../../actions";
-import {
-  checkboxIncomeSelector,
-  isIncomeFulfilledSelector,
-} from "../../selectors";
+import { connect } from "react-redux";
+import { updateCheckboxIncome } from "../../actions";
+import { isIncomeFulfilledSelector } from "../../selectors";
+import { GreenCheckbox } from "../components-with-styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,19 +21,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const GreenCheckbox = withStyles({
-  root: {
-    color: blue[200],
-    "&$checked": {
-      color: blue[300],
-    },
-  },
-  checked: {},
-})((props) => <Checkbox color="default" {...props} />);
-
 function IncomeFormGroup({ updateStore, verify, files }) {
-  const dispatch = useDispatch();
-
   const classes = useStyles();
   const [state, setState] = React.useState({
     check1: false,
@@ -52,7 +34,7 @@ function IncomeFormGroup({ updateStore, verify, files }) {
     updateStore(newState);
   };
 
-  const { check1, check2, check3 } = state;
+  const { check1, check2 } = state;
 
   return (
     <div className={classes.root}>

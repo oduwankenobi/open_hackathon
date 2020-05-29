@@ -1,14 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, connect } from "react-redux";
-
+import React from "react";
+import { connect } from "react-redux";
 import DropzoneComponent from "react-dropzone-component";
-import {
-  addedFile,
-  addLabourFile,
-  removeFile,
-  removeLabourFile,
-  updateCheckbox,
-} from "../../actions";
+import { addLabourFile, removeLabourFile, updateCheckbox } from "../../actions";
 
 class DropzoneLabour extends React.Component {
   constructor(props) {

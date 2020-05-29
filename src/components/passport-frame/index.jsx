@@ -1,66 +1,22 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
+import { Animated } from "react-animated-css";
+import { connect } from "react-redux";
 import Dropzone from "../dropzone";
 import PdfView from "../pdfView";
 import DropGrid from "../drop-grid";
 import PassportFormGroup from "../passport-form-group";
-import { Animated } from "react-animated-css";
-
-import Button from "@material-ui/core/Button";
 import { addedFile } from "../../actions";
-import { connect } from "react-redux";
+import { isPassportFulfilledSelector, passFieldsStatus } from "../../selectors";
+import {
+  LargeRedClearIcon,
+  GreenCheckIcon,
+  RedClearIcon,
+  BlueButton,
+  LargeGreenCheckIcon,
+} from "../components-with-styles";
 
 import pass from "./pass.png";
-//import verified from './verified.svg';
-//import attention from './attention.svg';
-
-import styled from "styled-components";
-
-import { withStyles } from "@material-ui/core/styles";
-import { blue, green, red } from "@material-ui/core/colors";
-import { isPassportFulfilledSelector, passFieldsStatus } from "../../selectors";
-
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
-
-const RedClearIcon = withStyles({
-  root: {
-    color: red[400],
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const LargeRedClearIcon = withStyles({
-  root: {
-    color: red[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const GreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const LargeGreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const BlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "1px dotted transparent",
-    borderRadius: 4,
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
 
 class PassportFrame extends React.Component {
   constructor(props) {
@@ -84,12 +40,6 @@ class PassportFrame extends React.Component {
       animationOut: 1000,
       hintSize: this.state.hintSize === "0px" ? "200px" : "0px",
     });
-    return;
-    /*
-    setTimeout(() => this.setState({
-      hintSize: this.state.hintSize === "200px" ? "0px" : "200px"
-    }), this.state.animationOut
-      */
   };
 
   handleShowPassport = () => {
@@ -99,11 +49,11 @@ class PassportFrame extends React.Component {
       passportHeight: this.state.passportHeight === "0px" ? "1000px" : "0px",
       verify: true,
     });
-    return;
   };
 
   render() {
-    const { fields, isFulfilled } = this.props;
+    const { fields, isFulfilled, pdfFile } = this.props;
+    const verify = this.props.verify || this.state.verify;
 
     return (
       <Container>
@@ -130,18 +80,18 @@ class PassportFrame extends React.Component {
               {!this.state.passportShow ? (
                 <h3>
                   <span hidden={!isFulfilled}>
-                    <LargeGreenCheckIcon></LargeGreenCheckIcon>
+                    <LargeGreenCheckIcon />
                   </span>
-                  <span hidden={!(this.state.verify && !isFulfilled)}>
-                    <LargeRedClearIcon></LargeRedClearIcon>
+                  <span hidden={!(verify && !isFulfilled)}>
+                    <LargeRedClearIcon />
                   </span>
 
                   <span
                     style={{
                       color:
-                        this.state.verify && isFulfilled
+                        verify && isFulfilled
                           ? "green"
-                          : this.state.verify && !isFulfilled
+                          : verify && !isFulfilled
                           ? "red"
                           : "black",
                     }}
@@ -184,10 +134,10 @@ class PassportFrame extends React.Component {
                     >
                       <h5>
                         <span hidden={!isFulfilled}>
-                          <LargeGreenCheckIcon></LargeGreenCheckIcon>
+                          <LargeGreenCheckIcon />
                         </span>
-                        <span hidden={!(this.state.verify && !isFulfilled)}>
-                          <LargeRedClearIcon></LargeRedClearIcon>
+                        <span hidden={!(verify && !isFulfilled)}>
+                          <LargeRedClearIcon />
                         </span>
                         Данные паспорта
                       </h5>
@@ -198,124 +148,112 @@ class PassportFrame extends React.Component {
                       >
                         Обязательные страницы: <br />
                         <br />
-                        <span hidden={!fields["field1"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field1}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field1"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field1)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field1"]
+                            color: fields.field1
                               ? "green"
-                              : this.state.verify && !fields["field1"]
+                              : verify && !fields.field1
                               ? "red"
                               : "grey",
                           }}
                         >
-                            2-3 - разворот с фотографией,
+                          2-3 - разворот с фотографией,
                         </span>
                         <br />
-                        <span hidden={!fields["field2"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field2}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field2"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field2)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field2"]
+                            color: fields.field2
                               ? "green"
-                              : this.state.verify && !fields["field2"]
+                              : verify && !fields.field2
                               ? "red"
                               : "grey",
                           }}
                         >
-                            4-5 - место жительства (адрес регистрации),
+                          4-5 - место жительства (адрес регистрации),
                         </span>
                         <br />
-                        <span hidden={!fields["field3"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field3}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field3"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field3)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field3"]
+                            color: fields.field3
                               ? "green"
-                              : this.state.verify && !fields["field3"]
+                              : verify && !fields.field3
                               ? "red"
                               : "grey",
                           }}
                         >
-                            12-13 - воинская обязанность,
+                          12-13 - воинская обязанность,
                         </span>
                         <br />
-                        <span hidden={!fields["field4"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field4}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field4"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field4)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field4"]
+                            color: fields.field4
                               ? "green"
-                              : this.state.verify && !fields["field4"]
+                              : verify && !fields.field4
                               ? "red"
                               : "grey",
                           }}
                         >
-                            14-15 - семейное положение,
+                          14-15 - семейное положение,
                         </span>
                         <br />
-                        <span hidden={!fields["field5"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field5}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field5"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field5)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field5"]
+                            color: fields.field5
                               ? "green"
-                              : this.state.verify && !fields["field5"]
+                              : verify && !fields.field5
                               ? "red"
                               : "grey",
                           }}
                         >
-                            16-17 - дети,
+                          16-17 - дети,
                         </span>
                         <br />
-                        <span hidden={!fields["field6"]}>
-                          <GreenCheckIcon></GreenCheckIcon>
+                        <span hidden={!fields.field6}>
+                          <GreenCheckIcon />
                         </span>
-                        <span
-                          hidden={!(this.state.verify && !fields["field6"])}
-                        >
-                          <RedClearIcon></RedClearIcon>
+                        <span hidden={!(verify && !fields.field6)}>
+                          <RedClearIcon />
                         </span>
                         <span
                           style={{
-                            color: fields["field6"]
+                            color: fields.field6
                               ? "green"
-                              : this.state.verify && !fields["field6"]
+                              : verify && !fields.field6
                               ? "red"
                               : "grey",
                           }}
                         >
-                            18-19 - сведения о ранее выданном паспорте
+                          18-19 - сведения о ранее выданном паспорте
                         </span>
                         <br />
                       </div>
@@ -331,7 +269,7 @@ class PassportFrame extends React.Component {
                           style={{
                             display: "block",
                           }}
-                          fullWidth={true}
+                          fullWidth
                         >
                           {this.state.hintShow
                             ? "Спрятать подсказку"
@@ -368,7 +306,7 @@ class PassportFrame extends React.Component {
                                 Необходимы{" "}
                                 <strong>
                                   все страницы, <br />
-                                   даже пустые
+                                  даже пустые
                                 </strong>
                               </div>
                               <div
@@ -397,9 +335,7 @@ class PassportFrame extends React.Component {
                   }}
                 >
                   <Row>
-                    {/*Pdf*/}
                     <Col md={4}>
-                      {/*make it fix size for one of them*/}
                       <div
                         style={{
                           "border-radius": "8px",
@@ -426,7 +362,7 @@ class PassportFrame extends React.Component {
                   <div
                     style={{
                       margin: "0px 30px",
-                      "margin-top": "-50px",
+                      "margin-top": pdfFile ? "0px" : "-50px",
                       "margin-bottom": "10px",
                     }}
                   >
@@ -441,7 +377,7 @@ class PassportFrame extends React.Component {
                     </h5>
                   </div>
                 </Row>
-                <DropGrid></DropGrid>
+                <DropGrid />
               </Animated>
             </div>
           </div>

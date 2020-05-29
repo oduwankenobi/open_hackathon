@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Container, Col, Row } from "react-bootstrap";
-
 import headerImage from "./header.png";
 import logoSvg from "./logo.svg";
 

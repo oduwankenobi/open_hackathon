@@ -1,5 +1,3 @@
-import { addLabourFile } from "../actions";
-
 const initialState = {
   pdfFile: null,
   checkbox: {
@@ -32,14 +30,15 @@ const initialState = {
   verifyIncome: false,
   incomeFiles: [],
 };
+
 const forms = (state = initialState, action) => {
   const { payload, type } = action;
 
-  switch (action.type) {
+  switch (type) {
     case "ADDED_FILE":
       return {
         ...state,
-        pdfFile: action.file,
+        pdfFile: payload.file,
       };
     case "REMOVED_FILE":
       return {
@@ -49,7 +48,7 @@ const forms = (state = initialState, action) => {
     case "UPDATE_CHECKBOX":
       return {
         ...state,
-        checkbox: action.obj,
+        checkbox: payload.obj,
       };
     case "ADD_PASSPORT_PHOTO":
       return {

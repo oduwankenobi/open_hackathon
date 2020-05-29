@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-
 import styled from "styled-components";
 import SmallDropzone from "../small-dropzone";
 
@@ -15,7 +14,7 @@ const Pill = styled.div`
   text-align: center;
 `;
 
-export default function DropGrip(props) {
+export default function DropGrip() {
   return (
     <Container>
       <div

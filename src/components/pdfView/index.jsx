@@ -1,22 +1,9 @@
 import React from "react";
 import PDFViewer from "mgr-pdf-viewer-react";
 import { connect } from "react-redux";
-
-import Button from "@material-ui/core/Button";
-import { withStyles } from "@material-ui/core/styles";
-import { blue, grey } from "@material-ui/core/colors";
-
-const BlueButton = withStyles({
-  root: {
-    color: grey[900],
-    border: "1px solid black",
-    borderRadius: 4,
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
+import { GreyButton } from "../components-with-styles";
 
 function PdfView({ pdfFile }) {
-  // const pdfFile = useSelector(state => state.forms.pdfFile);
   console.log("View", pdfFile);
   const [page, setPage] = React.useState(0);
 
@@ -34,20 +21,20 @@ function PdfView({ pdfFile }) {
           margin: "10px 0px",
         }}
       >
-        <BlueButton
+        <GreyButton
           variant="outlined"
           color="primary"
           onClick={() => setPage(page - 1 > 0 ? page - 1 : page)}
         >
           Предыдущая страница
-        </BlueButton>
-        <BlueButton
+        </GreyButton>
+        <GreyButton
           variant="outlined"
           color="primary"
           onClick={() => setPage(page + 1)}
         >
           Следующая страница
-        </BlueButton>
+        </GreyButton>
       </div>
     </div>
   );

@@ -1,74 +1,19 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { Animated } from "react-animated-css";
-
-import Button from "@material-ui/core/Button";
 import { connect } from "react-redux";
-
-import { withStyles } from "@material-ui/core/styles";
-import { blue, green, red } from "@material-ui/core/colors";
-
-import CheckIcon from "@material-ui/icons/Check";
-import ClearIcon from "@material-ui/icons/Clear";
 import {
   checkboxLabourSelector,
   isLabourFulfilledSelector,
 } from "../../selectors";
 import DropzoneLabour from "../dropzone-labour";
-import { addedFile, addLabourFile, verifyLabour } from "../../actions";
-import PassportFormGroup from "../passport-form-group";
-
+import { addLabourFile, verifyLabour } from "../../actions";
 import LabourFormGroup from "../labour-form-group";
-
-const BigBlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "4px solid #89cff0",
-    height: "60px",
-    fontSize: "1.5rem",
-    marginTop: "20px",
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
-
-const RedClearIcon = withStyles({
-  root: {
-    color: red[400],
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const LargeRedClearIcon = withStyles({
-  root: {
-    color: red[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <ClearIcon color="default" {...props} />);
-
-const GreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const LargeGreenCheckIcon = withStyles({
-  root: {
-    color: green[400],
-    "font-size": "48px",
-  },
-  checked: {},
-})((props) => <CheckIcon color="default" {...props} />);
-
-const BlueButton = withStyles({
-  root: {
-    color: blue[300],
-    border: "1px dotted transparent",
-    borderRadius: 4,
-  },
-  checked: {},
-})((props) => <Button color="default" {...props} />);
+import {
+  BlueButton,
+  LargeRedClearIcon,
+  LargeGreenCheckIcon,
+} from "../components-with-styles";
 
 class LabourFrame extends React.Component {
   constructor(props) {
@@ -106,7 +51,7 @@ class LabourFrame extends React.Component {
   };
 
   render() {
-    const { fields, isFulfilled, verify } = this.props;
+    const { isFulfilled } = this.props;
 
     return (
       <div style={{}}>
@@ -118,7 +63,6 @@ class LabourFrame extends React.Component {
               "margin-top": "20px",
               border: "1px solid #e5e5e5",
               padding: "10px",
-              "padding-bottom": "0px",
             }}
           >
             <div>
@@ -267,22 +211,22 @@ class LabourFrame extends React.Component {
                       <DropzoneLabour />
                     </Col>
                   </Row>
-                  {/*<Row>*/}
-                  {/*  <Col>*/}
-                  {/*    <div*/}
-                  {/*      style={{*/}
-                  {/*        "margin-top": "20px",*/}
-                  {/*        "margin-bottom": "15px",*/}
-                  {/*        "text-align": "center",*/}
-                  {/*        color: "grey",*/}
-                  {/*        "font-size": "2rem",*/}
-                  {/*      }}*/}
-                  {/*    >*/}
-                  {/*      Внесите файлы с трудовой книжкой ниже.*/}
-                  {/*    </div>*/}
-                  {/*  </Col>*/}
-                  {/*</Row>*/}
-                  {/*<DropzoneLabour />*/}
+                  {/* <Row> */}
+                  {/*  <Col> */}
+                  {/*    <div */}
+                  {/*      style={{ */}
+                  {/*        "margin-top": "20px", */}
+                  {/*        "margin-bottom": "15px", */}
+                  {/*        "text-align": "center", */}
+                  {/*        color: "grey", */}
+                  {/*        "font-size": "2rem", */}
+                  {/*      }} */}
+                  {/*    > */}
+                  {/*      Внесите файлы с трудовой книжкой ниже. */}
+                  {/*    </div> */}
+                  {/*  </Col> */}
+                  {/* </Row> */}
+                  {/* <DropzoneLabour /> */}
                 </Animated>
               </div>
             </div>
